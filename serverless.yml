@@ -1,0 +1,33 @@
+component: http
+name: nestjstemplate
+inputs:
+  region: ap-shanghai
+  src:
+    dist: ./
+    hook: npm run build
+    exclude:
+      - .env
+  faas:
+    runtime: Nodejs16.13
+    framework: nestjs
+    name: ${name}
+    environments:
+      - key: SERVERLESS
+        value: '1'
+      - key: DB_HOST
+        value:  ${env:DB_HOST}
+      - key: DB_NAME
+        value:  ${env:DB_NAME}
+      - key: DB_USERNAME
+        value:  ${env:DB_USERNAME}
+      - key: DB_PASSWORD
+        value: ${env:DB_PASSWORD}
+      - key: PORT
+        value: 9000
+      - key: clientUrl
+        value: ${env:clientUrl}
+  apigw:
+    protocols:
+      - http
+      - https
+app: demo-nestjs
